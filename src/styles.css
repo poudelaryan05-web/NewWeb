@@ -1,0 +1,113 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-neon: var(--neon);
+  --color-neon-purple: var(--neon-purple);
+  --font-display: "Orbitron", system-ui, sans-serif;
+  --font-body: "Rajdhani", system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.13 0.03 265);
+  --foreground: oklch(0.97 0.01 250);
+  --card: oklch(0.18 0.035 265 / 60%);
+  --card-foreground: oklch(0.97 0.01 250);
+  --popover: oklch(0.16 0.035 265);
+  --popover-foreground: oklch(0.97 0.01 250);
+  --primary: oklch(0.72 0.18 240);
+  --primary-foreground: oklch(0.1 0.02 265);
+  --secondary: oklch(0.22 0.04 270);
+  --secondary-foreground: oklch(0.97 0.01 250);
+  --muted: oklch(0.22 0.03 265);
+  --muted-foreground: oklch(0.7 0.03 260);
+  --accent: oklch(0.65 0.22 300);
+  --accent-foreground: oklch(0.1 0.02 265);
+  --destructive: oklch(0.65 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 8%);
+  --ring: oklch(0.72 0.18 240);
+  --neon: oklch(0.78 0.2 235);
+  --neon-purple: oklch(0.7 0.24 300);
+  --shadow-neon: 0 0 24px color-mix(in oklab, var(--neon) 60%, transparent);
+  --shadow-neon-purple: 0 0 24px color-mix(in oklab, var(--neon-purple) 55%, transparent);
+}
+
+.dark {
+  /* same as :root - this app is dark-only */
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html, body { background-color: var(--color-background); color: var(--color-foreground); font-family: var(--font-body); }
+  body {
+    background-image:
+      radial-gradient(circle at 20% 10%, color-mix(in oklab, var(--neon) 12%, transparent), transparent 50%),
+      radial-gradient(circle at 85% 90%, color-mix(in oklab, var(--neon-purple) 10%, transparent), transparent 55%);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+  h1, h2, h3, .font-display { font-family: var(--font-display); letter-spacing: 0.02em; }
+}
+
+@utility glass {
+  background: color-mix(in oklab, var(--card) 70%, transparent);
+  backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid var(--border);
+}
+
+@utility neon-glow {
+  box-shadow: var(--shadow-neon);
+}
+
+@utility neon-text {
+  color: var(--neon);
+  text-shadow: 0 0 12px color-mix(in oklab, var(--neon) 70%, transparent);
+}
+
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.4; }
+  50% { transform: translateY(-30px) translateX(10px); opacity: 0.9; }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 16px color-mix(in oklab, var(--neon) 40%, transparent); }
+  50% { box-shadow: 0 0 32px color-mix(in oklab, var(--neon) 80%, transparent); }
+}
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes scale-in { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: scale(1); } }
+
+.animate-float { animation: float-particle 6s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 2.4s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 1.2s linear infinite; }
+.animate-fade-up { animation: fade-up 0.5s ease-out both; }
+.animate-scale-in { animation: scale-in 0.25s ease-out both; }
